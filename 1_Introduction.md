@@ -1,0 +1,208 @@
+1 Introduction
+================
+Boukara Ahmed El-Hachemi
+07/07/2020
+
+“Modeling” is a process of asking questions. “Statistical” refers in
+part to data – the statistical models you will construct will be rooted
+in data. But it refers also to a distinctively modern idea: that you can
+measure what you don’t know and that doing so contributes to your
+understanding.
+
+There is a saying, “A person with a watch knows the time. A person with
+two watches is never sure.” The statistical point of view is that it’s
+better not to be sure.
+
+Statistical methods allow you to make objective statements about how the
+data answer your questions. In particular, the methods help you to know
+if the data show anything at all.
+
+The word “modeling” highlights that your goals, your beliefs, and your
+current state of knowledge all influence your analysis of data. The core
+of the scientific method is the formation of hypotheses that can be
+tested and perhaps refuted by experiment or observation. Similarly, in
+statistical modeling, you examine your data to see whether they are
+consistent with the hypotheses that frame your understanding of the
+system under study.
+
+## 1 Models and their Purposes
+
+> A model is a representation for a particular purpose.
+
+There are three main uses for statistical models. They are closely
+related, but distinct enough to be worth enumerating.
+
+1.  **Description.** Sometimes you want to describe the range or typical
+    values of a quantity. For example, what’s a “normal” white blood
+    cell count? Sometimes you want to describe the relationship between
+    things. Example: What’s the relationship between the price of
+    gasoline and consumption by automobiles?  
+2.  **Classification or prediction**. You often have information about
+    some observable traits, qualities, or attributes of a system you
+    observe and want to draw conclusions about other things that you
+    can’t directly observe. For instance, you know a patient’s white
+    blood-cell count and other laboratory measurements and want to
+    diagnose the patient’s illness.
+3.  **Anticipating the consequences of interventions**. Here, you intend
+    to do something: you are not merely an observer but an active
+    participant in the system. For example, people involved in setting
+    or debating public policy have to deal with questions like these: To
+    what extent will increasing the tax on gasoline reduce consumption?
+    To what extent will paying teachers more increase student
+    performance?
+
+To anticipate correctly the effects of an intervention you need to get
+the direction of cause and effect correct in your models. But for a
+model used for classification or prediction, it may be unnecessary to
+represent causation correctly. Instead, other issues, e.g., the
+reliability of data, can be the most important. One of the thorniest
+issues in statistical modeling – with tremendous consequences for
+science, medicine, government, and commerce – is how you can
+legitimately draw conclusions about interventions from models based on
+data collected without performing these interventions.
+
+## 2 Observation and Knowledge
+
+It’s difficult to use observation to inform knowledge because
+relationships are complicated and involve multiple factors. It isn’t at
+all obvious how people can discover or demonstrate causal relationships
+through observation. Suppose one school district pays teachers well and
+another pays them poorly. You observe that the first district has better
+student outcomes than the second. Can you legitimately conclude that
+teacher pay accounts for the difference? Perhaps something else is at
+work: greater overall family wealth in the first district (which is what
+enabled them to pay teachers more), better facilities, smaller classes,
+and so on.
+
+Historian Robert Hughes concisely summarized the difficulty of trying to
+use observation to discover causal relationships. In describing the
+extensive use of hanging in 18th and 19th century England, he wrote,
+“One cannot say whether public hanging did terrify people away from
+crime. Nor can anyone do so, until we can count crimes that were never
+committed.” (Hughes 1988) To know whether hanging did deter crime, you
+would need to observe a **counterfactual**, something that didn’t
+actually happen: the crimes in a world without hanging. You can’t
+observe counterfactuals. So you need somehow to generate observations
+that give you data on what happens for different levels of the causal
+variable.
+
+A modern idea is the controlled experiment . In its simplest ideal form,
+a controlled experiment involves changing one thing – teacher pay, for
+example – while holding everything else constant: family wealth,
+facilities, etc.
+
+The experimental approach to gaining knowledge has great success in
+medicine and science. For many people, experiment is the essence of all
+science. But experiments are hard to perform and sometimes not possible
+at all. How do you hold everything else constant? Partly for this
+reason, you rarely see reports of experiments when you read the
+newspaper, unless the article happens to be about a scientific
+discovery.
+
+This book is based on the idea that techniques for drawing valid
+conclusions from observations – data – are valuable for two groups of
+people. The first group is scientists and others who routinely need to
+use statistical methods to analyze experimental and other data.
+
+The second group is everybody else. All of us need to draw conclusions
+from our experiences, even if we’re not in a laboratory. It’s better to
+learn how to do this in valid ways, and to understand the limitations of
+these ways, than to rely on an informal, unstated process of opinion
+formation. It may turn out that in any particular area of interest there
+are no useful data. In such situations, you won’t be able to use the
+techniques. But at least you will know what you’re missing. You may be
+inspired to figure out how to supply it or to recognize it when it does
+come along, and you’ll be aware of when others are misusing data.
+
+As you will see, the manner in which the data are collected plays a
+central role in what sorts of conclusions can be legitimately made; data
+do not always speak for themselves. You will also see that strongly
+supported statements about causation are difficult to make. Often, all
+you can do is point to an “association” or a “correlation,” a weaker
+form of statement.
+
+Statistics is sometimes loosely described as the “science of data.” This
+description is apt, particularly when it covers both the collection and
+analysis of data, but it does not mean much until you understand what
+data are.
+
+## 3 The Main Points of this Book
+
+1.  Statistics is about variation. Describing and interpreting variation
+    is a major goal of statistics.  
+2.  You can create empirical, mathematical descriptions not only of a
+    single trait or variable but also of the relationships between two
+    or more traits. Empirical means based on measurements, data,
+    observations.  
+3.  Models let you split variation into components: “explained” versus
+    “unexplained.” How to measure the size of these components and how
+    to compare them to one another is a central aspect of statistical
+    methodology. Indeed, this provides a definition of statistics:
+
+> Statistics is the explanation of variation in the context of what
+> remains unexplained.
+
+4.  By collecting data in ways that require care but are quite feasible,
+    you can estimate how reliable your descriptions are, e.g., whether
+    it’s plausible that you should see similar relationships if you
+    collected new data. This notion of reliability is very narrow and
+    there are some issues that depend critically on the context in which
+    the data were collected and the correctness of assumptions that you
+    make about how the world works.  
+5.  Relationships between pairs of traits can be studied in isolation
+    only in special circumstances. In general, to get valid results it
+    is necessary to study entire systems of traits simultaneously.
+    Failure to do so can easily lead to conclusions that are grossly
+    misleading.  
+6.  Descriptions of relationships are often **subjective** – they depend
+    on choices that you, the modeler, make. These choices are generally
+    rooted in your own beliefs about how the world works, or the
+    theories accepted as plausible within some community of inquiry.  
+7.  If data are collected properly, you can get an indication of whether
+    the data are consistent or inconsistent with your subjective beliefs
+    or – and this is important – whether you don’t have enough data to
+    tell either way.  
+8.  Models can be used to check out the sensitivity of your conclusions
+    to different beliefs. People who disagree in their views of how the
+    world works often may not be able to reconcile their differences
+    based on data, but they will be able to decide objectively whether
+    their own or the other party’s beliefs are reasonable given the
+    data.  
+9.  Notwithstanding everything said above about the strong link between
+    your prior, subjective beliefs and the conclusions you draw from
+    data, by collecting data in a certain context – experiments – you
+    can dramatically simplify the interpretation of the results. It’s
+    actually possible to remove the dependence on identified subjective
+    beliefs by intervening in the system under study experimentally.
+
+The point of view taken in this book is that it is better to be useful
+than to be provably certain. The objective is to introduce methods and
+ideas that can help you deal with drawing conclusions about the real
+world from data. The methods and ideas are meant to guide your
+reasoning; even if the conclusions you draw are not guaranteed by proof
+to be correct, they can still be more useful than the alternative, which
+is the conclusions that you draw without data, or the conclusions you
+draw from simplistic methods that don’t honor the complexity of the real
+system.
+
+## Reading Questions
+
+1.  How can a model be useful even if it is not exactly correct?
+2.  Give an example of a model used for classification.
+3.  Often we describe personalities as “patient,” “kind,” “vengeful,”
+    etc. How can these descriptions be used as models for prediction?
+4.  Give three examples of models that you use in everyday life. For
+    each, say what is the purpose of the model and in what ways the
+    representation differs from the real thing.
+5.  Make a sensible statement about how precisely these quantities are
+    typically measured:
+    1.  The speed of a car.
+    2.  Your weight.
+    3.  The national unemployment rate.
+    4.  A person’s intelligence.
+6.  Give an example of a controlled experiment. What quantity or
+    quantities have been varied and what has been held constant?
+7.  Using one of your textbooks from another field, pick an illustration
+    or diagram. Briefly describe the illustration and explain how this
+    is a model, in what ways it is faithful to the system being
+    described and in what ways it fails to reflect that system.
