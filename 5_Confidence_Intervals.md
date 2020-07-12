@@ -1,0 +1,209 @@
+5 Confidence Intervals
+================
+Boukara Ahmed El-Hachemi
+11/07/2020
+
+A quantity such as the mean or median itself has limited precision that
+arises from the sampling process that was used to collect the data and
+when you collected a different sample, it’s likely that you would have
+gotten a somewhat different value for the quantities you calculate, the
+so-called ***sampling variability***. One purpose of statistical
+inference is to characterize sampling variability, that is, to provide a
+quantitative meaning for “somewhat different value.”
+
+## 1 The Sampling Distribution
+
+The ***sampling distribution*** describes how different the answers
+stemming from different random samples will be. The word “random” is
+very important here. Random sampling helps to ensure that the sample is
+representative of the population.
+
+Historically, the sampling distribution was approximated using algebraic
+techniques. But it’s perfectly feasible to use the computer to repeat
+the process of random sampling many times and to generate the sampling
+distribution through a simulation.
+
+The sampling distribution depends on both the data and on the statistic
+being calculated.
+
+The usual way to quantify the precision of a measurement is called a
+confidence interval. This is commonly written in either of two
+equivalent ways:
+
+  - ***Plus-and-minus format*** 98.8 ± 1.7 minutes with 95% confidence
+  - ***Range format*** 97.1 to 100.5 minutes with 95% confidence.
+
+If the sample size had been smaller, the confidence interval would be
+bigger; that is, smaller samples result in less precise estimates.
+
+The logic of sampling distributions and confidence intervals applies to
+any statistic calculated from a sample, not just the means used in these
+examples but also proportions, medians, standard deviations,
+inter-quartile intervals, etc.
+
+## Aside: Precision and Sample Size
+
+As a rule, the square width of the sampling distribution scales with
+1/n, that is,
+
+\[\mbox{width}^2  \propto \frac{1}{n}.\]
+
+Taking square roots leads to the simple relationship of width with n:
+
+\[\mbox{width}  \propto \frac{1}{\sqrt{n}}.\]
+
+To improve your precision by a factor of two, you will need 4 times as
+much data. For ten times better precision, you’ll need 100 times as much
+data.
+
+## 2 The Resampling Distribution & Bootstrapping
+
+For almost all practical work, you need to estimate the properties of
+the sampling distribution from your single sample of size n. 
+
+One way to do this is called ***bootstrapping***.
+
+The simple idea behind bootstrapping is to use the sample itself to
+stand for the population.
+
+## 3 Re-sampling
+
+New samples, taken from your original sample, not from the population,
+are called ***resamples*** : sampling from the sample.
+
+The sample itself is used as a stand-in for the population and new
+samples are drawn from the sample.
+
+An objection might come to mind: If you draw n cases out of a sample
+consisting of n cases, the resample will look exactly like the sample
+itself. No variability. This problem is easily overcome by ***sampling
+with replacement***.
+
+Whenever a case is drawn from the sample to put in a resample, the case
+is put back so that it is available to be used again. This is not
+something you would do when collecting the original sample; in sampling
+(as opposed to re-sampling) you don’t use a case more than once.
+
+The resamples may seem a bit odd. They often repeat cases and omit
+cases. And, of course, any case in the population that was not included
+in the sample cannot be included in any of the resamples. Even so, the
+resamples do the job; they simulate the variation in model coefficients
+introduced by the process of random sampling.
+
+The process of finding confidence intervals via re-sampling is called
+***bootstrapping***.
+
+## 4 The Re-Sampling Distribution
+
+It’s important to emphasize what the resamples do not and cannot do:
+they don’t construct the sampling distribution. The resamples merely
+show what the sampling distribution would look like *if the population
+looked like your sample*. The center of the re-sampling distribution
+from any given sample is generally not aligned exactly with the center
+of the population-based sampling distribution. However, in practice, the
+width of the re-sampling distribution is a good match to the width of
+the sampling distribution. The re-sampling distribution is adequate for
+the purpose of finding standard errors and margins of error.
+
+Consistently, however, the re-sampling distributions have a standard
+error that is a close match to the standard error of the sampling
+distribution.
+
+## 5 The Confidence Level
+
+In constructing a confidence interval, a choice is made about how to
+describe the sampling distribution (or, in practice, the re-sampling
+distribution). The conventional choice is a 95% coverage interval – the
+top and bottom limits that cover 95% of the distribution.
+
+When constructing a confidence interval, the amount of coverage is
+called a ***confidence level*** and is often indicated with a phrase
+like “at 95% confidence.” The choice of 95% is conventional and
+uncontroversial, but sometimes people choose for good reasons or bad to
+use another level such as 99% or 90%.
+
+In theory, 100% confidence intervals tend to look like -∞ to ∞. No
+information there\! Complete confidence comes at the cost of complete
+ignorance.
+
+The 95% confidence level is standard in contemporary science; it’s a
+convention. For that reason alone, it is a good idea to use 95% so that
+the people reading your work will tend to interpret things correctly.
+
+The vocabulary of “confidence interval” and “confidence level” can be a
+little misleading. Confidence in everyday meaning is largely subjective,
+and you often hear of people being “over confident” or “lacking
+self-confidence.” It might be better if a term like “sampling precision
+interval” were used. In some fields, the term “error bar” is used
+informally, although “error” itself may have nothing to do with it; the
+precision stems from sampling variation.
+
+## 6 Interpreting Confidence Intervals
+
+Confidence intervals are easy to construct, whether by bootstrapping or
+other techniques. The are also very easy to misinterpret. One of the
+most common misinterpretations is to confuse the statement of the
+confidence interval with a statement about the individuals in the
+sample.
+
+Confidence intervals are often mistaken for being about individuals –
+the “typical” person, when a mean is involved – but they are really
+about the strength of evidence, about the precision of an estimate.
+
+Another tempting statement is, “If I repeated my study with a different
+random sample, the new result would be within the margin of error of the
+original result.” But that statement isn’t correct mathematically,
+unless your point estimate happens to align perfectly with the
+population parameter – and there’s no reason to think this is the case.
+
+Treat the confidence interval just as an indication of the precision of
+the measurement. If you do a study that finds a statistic of 17 ± 6 and
+someone else does a study that gives 23 ± 5, then there is little reason
+to think that the two studies are inconsistent. On the other hand, if
+your study gives 17 ± 2 and the other study is 23 ± 1, then something
+seems to be going on; you have a genuine disagreement on your hands.
+
+## 7 Confidence Intervals from Census Data
+
+Recall the distinction between a sample and a census. A census involves
+every member of the population, whereas a sample is a subset of the
+population.
+
+The logic of statistical inference applies to samples and is based on
+the variation introduced by the sampling process itself. Each possible
+sample is somewhat different from other possible samples. The techniques
+of inference provide a means to quantify “somewhat” and a standard
+format for communicating the imprecision that necessarily results from
+the sampling process.
+
+But what if you are working with the population: a census not just a
+sample? For instance, the employment termination data is based on every
+employee at the firm, not a random sample.
+
+One point of view is that statistical inference for a census is
+meaningless: the population is regarded as fixed and non random, so the
+population parameters are also fixed. It’s sampling from the population
+that introduces random variation.
+
+A different view, perhaps more pragmatic, considers the population
+itself as a hypothetically random draw from some abstract set of
+possible populations. For instance, in the census data, the particular
+set of employees was influenced by a host of unknown random factors:
+someone had a particularly up or down day when being interviewed, an
+employee became disabled or had some other life-changing event.
+
+You can certainly calculate the quantities of statistical inference from
+the complete population, using the internal, case-by-case variation as a
+stand-in for the hypothetical random factors that influenced each case
+in the population. Interpreting confidence intervals from populations in
+the same way as confidence intervals can provide a useful indication of
+the strength of evidence, and, indeed is recognized by courts when
+dealing with claims of employment discrimination. It does, however, rely
+on an untestable hypothesis about internal variation, which might not
+always be true.
+
+The reality, for courses and grades at least, is usually somewhere
+between the two scenarios. The modeling techniques described in later
+chapters provide an approach to pulling apart the various sources of
+variation, rather than ascribing all of it to randomness and including
+all of it in the calculation of confidence intervals.
