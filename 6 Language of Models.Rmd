@@ -1,0 +1,211 @@
+---
+title: "6 Language of Models"
+author: "Boukara Ahmed El-Hachemi"
+date: "12/07/2020"
+output: 
+  github_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  eval = FALSE,
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618
+)
+
+options(knitr.table.format = function() {
+  if (knitr::is_latex_output()) 
+    "latex" else "pipe"
+})
+
+library(mosaicData)
+library(dplyr)
+```
+
+Chapter 4 is concerned with model forms based on division into groups. Those models are very common, but their utility is limited: the models can be misleading because they fail to take into concern multiple factors that can shape outcomes, not just simple membership in a group. This chapter starts down the path toward more sophisticated models. The point of departure will be a set of concepts and a notation for describing models that are more general and therefore more flexible than simple group-wise models.  
+
+## 1 Models as Functions
+
+The concept of a **_function_** is very important when thinking about relationships. A function is a mathematical concept: the relationship between an **output** and one or more **inputs**. One way to talk about a function is that you plug in the inputs and receive back the output.  
+
+One way to represent a function is with a formula, but there are other ways as well, for example graphs and tables. The function is much simpler than the data. In the data, there is a scatter of usage levels at each temperature. But in the function there is only one output value for each input value.  
+
+Some vocabulary will help to describe how to represent relationships with functions.  
+
+* The **_response variable_** is the variable whose behavior or variation you are trying to understand. On a graph, the response variable is conventionally plotted on the vertical axis.  
+
+* The **_explanatory variables_** are the other variables that you want to use to explain the variation in the response. It’s conventionally plotted on the horizontal axis.  
+
+* **_Conditioning on explanatory variables_** means taking the value of the explanatory variables into account when looking at the response variables.  
+
+* The **_model value_** is the output of a function. The function – called the **_model function_** – has been arranged to take the explanatory variables as inputs and return as output a typical value of the response variable. That is, the model function gives the typical value of the response variable conditioning on the explanatory variables.   
+
+* The **_residuals_** show how far each case is from its model value. Residuals are always “actual value minus model value.”  
+
+Graphically, the residual for each case tells how far above the model function that case is. A negative residual means that the case is below the model function.  
+
+The model function describes how the typical value of the response variable depends on the explanatory variables. The output of the model function varies along with the explanatory variables. The idea of “depends on” is very important. In some fields such as economics, the term **_dependent variable_** is used instead of “response variable.” Other phrases are used for this notion of “depends on,” so you may hear statements such as these: “the value of the response _given_ the explanatory variables,” or “the value of the response _conditioned_ on the explanatory variables.”  
+
+The model function describes a relationship. If you plug in values for the explanatory variables for a given case, you get the model value for that case.  
+
+The residuals tell how each case differs from its model value. Both the model values and the residuals are important. The model values tell what’s typical or average. The residuals tell how far from typical an individual case is likely to be. This might remind you of the mean and standard deviation.  
+
+As already said, models partition the variation in the response variable. Some of the variability is explained by the model, the remainder is unexplained. The model values capture the “deterministic” or “explained” part of the variability of the response variable from case to case. The residuals represent the “random” or “unexplained” part of the variability of the response variable.  
+
+## 2 Model Functions with Multiple Explanatory Variables
+
+A statistical model can include multiple explanatory variables, all at once.   
+
+In a typical graph of data, the vertical axis stands for the response variable and the horizontal axis for the explanatory variable. But what do you do when there is more than one explanatory variable? One approach, when some of the explanatory variables are categorical, is to use differing symbols or colors to represent the differing levels of the categories.  
+
+Models can sometimes reveal patterns that are not evident in a graph of the data. This is a great advantage of modeling over simple visual inspection of data. There is a real risk, however, that a model is imposing structure that is not really there on the scatter of data, just as people imagine animal shapes in the stars. A skeptical approach is always warranted. Much of the second half of the book is about ways to judge whether the structure suggested by a model is justified by the data.   
+
+There is a tendency for those who first encounter models to fix attention on the clarity of the model and ignore the variation around the model. This is a mistake. Keep in mind the definition of statistics offered in the first chapter:  
+
+> Statistics is the explanation of variation in the context of what remains unexplained.  
+
+Adding more explanatory variables to a model can sometimes usefully reduce the size of the scatter around the model.Even when there is a good explanation for the scatter, if the explanatory variables behind this explanation are not included in the model, the scatter due to them will appear as unexplained variation.  
+
+## 3 Reading a Model
+
+There are two distinct ways that you can read a model.  
+
+* **_Read out the model value_**. Plug in specific values for the explanatory variables and read out the resulting model value.  
+
+* **_Characterize the relationship described by the model_**. In contrast to reading out a model value for some specific values of the explanatory variables, here interest is in the overall relationship.  
+
+Reading out the model value is useful when you want to make a prediction  or when you want to compare the actual value of the response variable to what the model says is a typical value.  
+
+Characterizing the relationship is useful when you want to make statements about broad patterns that go beyond individual cases.  
+
+The “shape” of the model function tells you about such broad relationships. Reading the shape from a graph of the model is not difficult.  
+
+For a quantitative explanatory variable, the model form is a continuous curve or line. An extremely important aspect of this curve is its slope.  
+
+The slope is measured in the usual way: rise over run. The numerical size of the slope is a measure of the strength of the relationship, the sign tells which way the relationship goes.  Some examples: For the gas usage model in winter-like temperatures, the slope is about -4 ccf/degree. This means that gas usage can be expected to go down by 4 ccf for every degree of temperature increase. For the model of wages, the slope for single females is about 0.20 dollars-per-hour/year: for every year older a single female is, wages typically go up by 20 cents-per-hour.  
+
+Slopes have units. These are always the units of the response variable divided by the units of the explanatory variable.  
+
+For categorical variables, slopes don’t apply. Instead, the pattern can be described in terms of _differences_.  
+
+When there is more than one explanatory variable, there will be a distinct slope or difference associated with each.  
+
+When describing models, the words used can carry implications that go beyond what is justified by the model itself. Saying “the difference between typical wages” is pretty neutral: a description of the pattern. But consider this statement: “Typical wages go up by 20 cents per hour for every year of age.” There’s an implication here of **causation**, that as a person ages his or her wage will go up. That might in fact be true, but the data on which the model is based were not collected in a way to support that claim. Those data don’t trace people as they age; they are not longitudinal data. Instead, the data are a snapshot of different people at different ages: cross-sectional data. It’s dangerous to draw conclusions about changes over time from cross-sectional data of the sort in the CPS data set. Perhaps people’s wages stay the same over time but that the people who were hired a long time ago tended to start at higher wages than the people who have just been hired.   
+
+Consider this statement: “A man’s wage rises when he gets married.” The model is consistent with this statement; it shows that a married man’s typical wage is higher than an unmarried man’s typical wage. But does marriage cause a higher wage? It’s possible that this is true, but that conclusion isn’t justified from the data. There are other possible explanations for the link between marital status and wage. Perhaps the men who earn higher wages are more attractive candidates for marriage. It might not be that marriage causes higher wages but that higher wages cause marriage.  
+
+To draw compelling conclusions about causation, it’s important to collect data in an appropriate way. For instance, if you are interested in the effect of marriage on wages, you might want to collect data from individuals both before and after marriage and compare their change in wages to that over the same time period in individuals who don’t marry. As described in Chapter 18, the strongest evidence for causation involves something more: that the condition be imposed experimentally, picking the people who are to get married at random. Such an experiment is hardly possible when it comes to marriage.  
+
+## 4 Choices in Model Design
+
+The suitability of a model for its intended purpose depends on choices that the modeler makes. There are three fundamental choices:  
+
+1. The data.
+2. The response variable.
+3. The explanatory variables.
+
+### The Data
+
+How were the data collected? Are they a random sample from a relevant sampling frame? Are they part of an experiment in which one or more variables were intentionally manipulated by the experimenter, or are they observational data? Are the relevant variables being measured? (This includes those that may not be directly of interest but which have a strong influence on the response.) Are the variables being measured in a meaningful way? Start thinking about your models and the variables you will want to include while you are still planning your data collection.  
+
+When you are confronted with a situation where your data are not suitable, you need to be honest and realistic about the limitations of the conclusions you can draw. The issues involved will be discussed starting in Chapter 17.  
+
+### The Response Variable
+
+The appropriate choice of a response variable for a model is often obvious. The response variable should be the thing that you want to predict, or the thing whose variability you want to understand. Often, it is something that you think is the effect produced by some other cause.  
+
+For example, in examining the relationship between gas usage and outdoor temperature, it seems clear that gas usage should be the response: temperature is a major determinant of gas usage. But suppose that the modeler wanted to be able to measure outdoor temperature from the amount of gas used. Then it would make sense to take temperature as the response variable.  
+
+Similarly, wages make sense as a response variable when you are interested in how wages vary from person to person depending on traits such as age, experience, and so on. But suppose that a sociologist was interested in assessing the influence of income on personal choices such as marriage. Then the marital status might be a suitable response variable, and wage would be an explanatory variable.  
+
+Most of the modeling techniques in this book require that the response variable be quantitative. The main reason is that there are straightforward ways to measure variation in a quantitative variable and measuring variation is key to assessing the reliability of models. There are, however, methods for building models with a categorical response variable. (One of them, logistic regression, is the subject of Chapter 16)  
+
+### Explanatory Variables
+
+Much of the thought in modeling goes into the selection of explanatory variables and later chapters in this book describes several ways to decide if an explanatory variable ought to be included in a model.  
+
+Of course, some of the things that shape the choice of explanatory variables are obvious. Do you want to study sex-related differences in wage? Then sex had better be an explanatory variable. Is temperature a major determinant of the usage of natural gas? Then it makes sense to include it as an explanatory variable.  
+
+You will see situations where including an explanatory variable hurts the model, so it is important to be careful. (This will be discussed in Chapter 12.) A much more common mistake is to leave out explanatory variables. Unfortunately, few people learn the techniques for handling multiple explanatory variables and so your task will often need to go beyond modeling to include explaining how this is done.  
+
+When designing a model, you should think hard about what are potential explanatory variables and be prepared to include them in a model along with the variables that are of direct interest.  
+
+## 5 Model Terms
+
+Once the modeler has selected explanatory variables, a choice must be made about **_model terms_**.   
+
+Notice that the various models have graphs of different shapes.  
+
+The modeler determines the shape of the model through his or her choice of **_model terms_**. The basic idea of a model term is that explanatory variables can be included in a model in more than one way. Each kind of term describes a different way to include a variable in the model.   
+
+You need to learn to describe models using model terms for several reasons. First, you will communicate in this language with the computers that you will use to perform the calculations for models. Second, when there is more than one explanatory variable, it’s hard to visualize the model function with a graph. Knowing the language of model terms will help you “see” the shape of the function even when you can’t graph it. Third, model terms are the way to talk about “parts” of models. In evaluating a model, statistical methods can be used to take the model apart and describe the contribution of each part. This analysis – the word “analysis” literally means to loosen apart – helps the modeler to decide which parts are worth keeping.  
+
+There are just a few basic kinds of models terms. They will be introduced by example in the following sections  
+
+1. **_intercept term_**: a sort of “baseline” that is included in almost every model.
+2. **_main terms_**: the effect of explanatory variables directly.
+3. **_interaction terms_** how different explanatory variables modulate the 4. relationship of each other to the response variable.
+4. **_transformation terms_**: simple modifications of explanatory variables.
+
+Models almost always include the intercept term and a main term for each of the explanatory variables. Transformation and interaction terms can be added to create more expressive or flexible shapes.  
+
+To form an understanding of how different kinds of terms contribute to the overall “shape” of the model function, it’s best to look at the differently shaped functions that result from including different model terms.   
+
+### The Intercept Term (and no other terms)
+
+The **_intercept term_** is included in almost every statistical model. The intercept term is a bit strange because it isn’t something you measure; it isn’t a variable. (The term “intercept” will make sense when model formulas are introduced in the next chapter.)  
+
+The model value for this model is exactly the same for every case. In order to create model variation from case to case, you would need to include at least one explanatory variable in the model.  
+
+### Intercept and Main Terms
+
+The most basic and common way to include an explanatory variable is as a main effect. Almost all models include the intercept term and a main term for each of the explanatory variables.  
+
+### Interaction Terms
+
+Interaction terms combine two other terms, typically two main terms. An interaction term can describe how one explanatory variable modulates the role of another explanatory variable in modeling the relationship of both with the response variable.  
+
+A common misconception about interaction terms is that they describe how one explanatory variable affects another explanatory variable. Don’t fall into this error. Model terms are always about how the response variable depends on the explanatory variables, not how explanatory variables depend on one another. An interaction term between two variables describes how two explanatory variables combine jointly to influence the response variable.  
+
+Once people learn about interaction terms, they are tempted to include them everywhere. Regretably, the uncritical use of interaction terms can lead to poor models. The problem is not the logic of interaction, the problem is in the data. Interaction terms can introduce a problem called **_multi-collinearity_** which can reduce the reliability of models. (See Chapter 12.) Fortunately, it’s not hard to detect multi-collinearity and to drop interaction terms if they are causing a problem. The model diagnostics that will be introduced in later chapters will make it possible to play safely with interaction terms.  
+
+### Transformation Terms
+
+A **_transformation term_** is a modification of another term using some mathematical transformation. Transformation terms only apply to quantitative variables. Some common transformations are x² or √x or log(x), where the quantitative explanatory variable is x.  
+
+A transformation term allows the model to have a dependence on $x$ that is not a straight line.  
+
+### Main Effects without the Intercept
+
+It’s possible to construct a model with main terms but no intercept terms. If the explanatory variables are all quantitative, this is almost always a mistake.  
+
+Never leave out the intercept unless you have a very good reason. Indeed, statistical software typically includes the intercept term by default. You have to go out of your way to tell the software to exclude the intercept.  
+
+## 6 Notation for Describing Model Design
+
+There is a concise notation for specifying the choices made in a model design, that is, which is the response variable, what are the explanatory variables, and what model terms to use. This notation, introduced originally in (Chambers and Hastie [1992](https://dtkaplan.github.io/SM2-bookdown/references.html#ref-chambers-hastie-1992)), will be used throughout the rest of this book and you will use it in working with computers.  
+
+To illustrate, here is the notation for some of the models looked at earlier in this chapter:
+
+* `ccf` ~ 1 + `temperature`
+* `wage` ~ 1 + `sex`
+* `time` ~ 1 + `year` + `sex` + `year`:`sex`
+
+The ~ symbol (pronounced “tilde”) divides each statement into two parts. On the left of the tilde is the name of the response variable. On the right is a list of model terms. When there is more than one model term, as is typically the case, the terms are separated by a `+` sign.  
+
+The examples show three types of model terms:  
+
+1. The symbol 1 stands for the intercept term.
+2. A variable name (e.g., `sex` or `temperature`) stands for using that variable in a main term.
+3. An interaction term is written as two names separated by a colon, for instance `year`:`sex`.
+
+Although this notation looks like arithmetic or algebra, IT IS NOT. The plus sign does not mean arithmetic addition, it simply is the divider mark between terms. In English, one uses a comma to mark the divider as in “rock, paper, and scissors.” The modeling notation uses + instead: “rock + paper + scissors.” So, in the modeling notation 1 + `age` does not mean “arithmetically add 1 to the age.” Instead, it means “two model terms: the intercept and `age` as a main term.”  
+
+Similarly, don’t confuse the tilde with an algebraic equal sign. The model statement is not an equation. So the statement `wage` ~ 1 + `age` does not mean “wage equals 1 plus age.” Instead it means, `wage` is the response variable and there are two model terms: the intercept and `age` as a main term."  
+
+In order to avoid accidentally leaving out important terms, the modeling notation includes some shorthand. Two main points will cover most of what you will do:  
+
+1. You don’t have to type the 1 term; it will be included by default. So, `wage` ~ `age` is the same thing as `wage` ~ 1 + `age`. On those very rare occasions when you might want to insist that there be no intercept term, you can indicate this with a minus sign: `wage` ~ `age` - 1.   
+
+2. Almost always, when you include an interaction term between two variables, you will also include the main terms for those variables. The * sign can be used as shorthand. The model `wage` ~ 1 +`sex`+`age` + `sex`:`age` can be written simply as `wage` ~ `sex`*`age`.  
