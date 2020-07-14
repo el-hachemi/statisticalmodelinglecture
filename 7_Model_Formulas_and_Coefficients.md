@@ -531,3 +531,112 @@ overall relationship between grades and participation might be Λ-shaped.
 Relationships that have a V- or Λ-shape won’t be effectively captured by
 straight-line models; transformation terms and interaction terms will be
 required.
+
+-----
+
+## Computational Technique
+
+### Examining model coefficients
+
+``` r
+mod <- lm(time ~ year + sex, data = SwimRecords)
+
+coef(mod)
+```
+
+As shorthand to display the coefficients, just type the name of the
+object that is storing the model:
+
+``` r
+mod
+```
+
+A more detailed report can be gotten with `summary`, This gives
+additional statistical information that will be used in later chapters:
+
+``` r
+summary(mod)
+```
+
+From time to time in the exercises, you will be asked to calculate model
+values “by hand.” This is accomplished by multiplying the coefficients
+by the appropriate values and adding them up. For example, the model
+value for a male swimmer in 2010 would be:
+
+``` r
+555.7 - 0.2515 * 2010 - 9.798
+```
+
+Notice that the “value” used to multiply the intercept is always 1, and
+the “value” used for a categorical level is either 0 or 1 depending on
+whether there is a match with the level.
+
+When a model includes interaction terms, the interaction coefficients
+need to be multiplied by all the values involved in the interaction.
+
+``` r
+mod2 <- lm(time ~ year * sex, data = SwimRecords)
+coef(mod2)
+```
+
+The year:sexM coefficient is being multiplied by the year (2010) and the
+value of sex M, which is 1 for this male swimmer.
+
+``` r
+697.3 - 0.3240 * 2010 - 302.4638 + 0.1499 * 2010
+```
+
+### Other Useful Operators
+
+##### `cross()` will combine two categorical variables into a single variable.
+
+For example, in the Current Population Survey data, the variable `sex`
+has levels F and M, while the variable `race` has levels W and NW.
+Crossing the two variables combines them; the new variable has four
+levels: F.NW, M.NW, F.W, M.W:
+
+``` r
+CPS <- CPS85
+racesex <- cross(CPS$sex, CPS$race)
+summary(racesex)
+```
+
+The summary tells us that there are 28 non-white females, 270 white
+females, etc, in the new categorical variable called `racesex`.
+
+##### `as.factor()` will convert a quantitative variable to a categorical variable.
+
+This is useful when a quantity like month has been coded as a number,
+say 1 for January and 2 for February, etc. but you do not want models to
+treat it as such.
+
+To illustrate, consider two different models of the usage temperature
+versus month:
+
+``` r
+utils <- Utilities
+mod1 <- lm(temp ~ month, data = utils)
+mod2 <- lm(temp ~ as.factor(month), data = utils)
+```
+
+Here are the graphs of those models:
+
+``` r
+xyplot(temp + fitted(mod1) ~ month, data = utils)
+```
+
+<img src="7_Model_Formulas_and_Coefficients_files/figure-gfm/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+
+``` r
+xyplot(temp + fitted(mod2) ~ month, data = utils)
+```
+
+<img src="7_Model_Formulas_and_Coefficients_files/figure-gfm/unnamed-chunk-9-2.png" style="display: block; margin: auto;" />
+
+In the first model, month is treated quantitatively, so the model term
+month produces a straight-line relationship that does not correspond
+well to the data.
+
+In the second model, month is treated categorically, allowing a more
+complicated model relationship. In fact, this is a groupwise model: the
+model values represent the mean temperature for each month.
